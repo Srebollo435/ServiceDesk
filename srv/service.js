@@ -13,9 +13,29 @@ class ServiceDesk_BTPService extends cds.ApplicationService {
         console.log("Empieza la lógica")
         this.before("UPDATE", "SolicitudesUser", (request) => this.onUpdateUser(request));
         this.before("UPDATE", "SolicitudesAdmin", (request) => this.onUpdateAdmin(request));
+        this.before("CREATE", "SolicitudesUser", (request) => this.onCreateUser(request));
 
         return super.init();
     }
+
+    async onCreateUser(request){
+        const data = await request.data;
+        const isUser = request.user.is('User');
+        console.log(data);
+
+        if(isUser){
+            if(data.Estado_code !== 'N'){
+                await request.reject('No puedes crear');
+                return;
+            }
+            if (data.Urgencia_code !== 'M'){
+                await request.reject('No puedes crear');
+                return;
+            }
+           
+        }
+    }
+
     async onUpdateAdmin(request){
         const { Estado_code } = await SELECT.one(request.subject, i => i.Estado_code).where({ ID: request.data.ID });
         const isAdmin = request.user.is('Admin');

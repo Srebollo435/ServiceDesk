@@ -7,6 +7,7 @@ service ServiceDesk_BTPService
      annotate SolicitudesUser with @restrict :
     [
         { grant : [ 'CREATE', 'DELETE', 'READ', 'UPDATE' ], to : [ 'User' ], where : 'createdBy = $user' }
+          // Ejemplo de cómo restringir el Estado_code para CREATE
         
     ];
 

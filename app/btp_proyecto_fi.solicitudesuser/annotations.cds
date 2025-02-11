@@ -123,6 +123,7 @@ annotate service.SolicitudesUser with @(
 annotate service.SolicitudesUser with {
     Urgencia @(Common.ValueListWithFixedValues : true,
         Common.Text : Urgencia.descr,
+        Common.FieldControl : #ReadOnly,
 )};
 
 annotate service.SolicitudesUser with {

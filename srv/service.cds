@@ -15,7 +15,8 @@ service ServiceDesk_BTPService
 
     annotate TiposDeSolicitud with @restrict :
     [
-        { grant : [ '*' ], to : [ 'Admin' ] }
+        { grant : [ '*' ], to : [ 'Admin' ] },
+        { grant : [ 'READ' ], to : [ 'User' ] }
     ];
 
     @odata.draft.enabled

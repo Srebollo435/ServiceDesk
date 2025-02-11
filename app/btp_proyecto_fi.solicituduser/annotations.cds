@@ -29,7 +29,7 @@ annotate service.SolicitudesUser with @(
             {
                 $Type : 'UI.DataField',
                 Value : T_solicitud_ID,
-                Label : '{i18n>Tsolicitudid1}',
+                Label : '{i18n>Tsolicitudid}',
             },
         ],
     },
@@ -151,6 +151,38 @@ annotate service.SolicitudesUser.Comunicaciones with @(
             $Type : 'UI.DataField',
             Value : timestamp,
         },
+        TypeImageUrl : 'sap-icon://chart-axis',
+    },
+    UI.Facets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Detalles Comunicación',
+            ID : 'DetallesComunicacin',
+            Target : '@UI.FieldGroup#DetallesComunicacin',
+        },
+    ],
+    UI.FieldGroup #DetallesComunicacin : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : ID,
+                Label : 'ID',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : message,
+                Label : 'message',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : author,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : timestamp,
+            },
+        ],
     },
 );
 

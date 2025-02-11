@@ -3,17 +3,14 @@ using { BTP_Proyecto_FI as my } from '../db/schema';
 @path : '/service/BTP_Proyecto_FISvcs'
 service ServiceDesk_BTPService
 {
-
-     annotate SolicitudesUser with @restrict :
-    [
-        { grant : [ 'CREATE', 'DELETE', 'READ', 'UPDATE' ], to : [ 'User' ], where : 'createdBy = $user' }
-          // Ejemplo de cómo restringir el Estado_code para CREATE
-        
-    ];
-
     annotate SolicitudesAdmin with @restrict :
     [
         { grant : [ '*' ], to : [ 'Admin' ] }
+    ];
+
+    annotate SolicitudesUser with @restrict :
+    [
+        { grant : [ 'CREATE', 'DELETE', 'READ', 'UPDATE' ], to : [ 'User' ], where : 'createdBy = $user' }
     ];
 
     annotate TiposDeSolicitud with @restrict :
@@ -33,6 +30,10 @@ service ServiceDesk_BTPService
     @odata.draft.enabled
     entity TiposDeSolicitud as
         projection on my.TiposDeSolicitud;
+
+    @odata.draft.enabled
+    entity PersonasSoporte as
+        projection on my.PersonasSoporte;
 }
 
 annotate ServiceDesk_BTPService with @requires :

@@ -8,7 +8,7 @@ sap.ui.define(['sap/fe/test/ObjectPage'], function(ObjectPage) {
 
     return new ObjectPage(
         {
-            appId: 'btpproyectofi.solicitudesuser',
+            appId: 'btpproyectofi.solicituduser',
             componentId: 'SolicitudesUser_ComunicacionesObjectPage',
             contextPath: '/SolicitudesUser/Comunicaciones'
         },

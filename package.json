@@ -28,9 +28,9 @@
     "start-local": "npm run generate-entry-point && npm run cds-watch",
     "generate-entry-point": "dev-cap-tools gen-entrypoint",
     "cds-watch": "cds watch --open",
-    "watch-btp_proyecto_fi.solicitudesuser": "cds watch --open btp_proyecto_fi.solicitudesuser/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-btp_proyecto_fi.solicitudadmin": "cds watch --open btp_proyecto_fi.solicitudadmin/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-btp_proyecto_fi.tiposolicitudes": "cds watch --open btp_proyecto_fi.tiposolicitudes/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-btp_proyecto_fi.tiposolicitudes": "cds watch --open btp_proyecto_fi.tiposolicitudes/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-btp_proyecto_fi.solicituduser": "cds watch --open btp_proyecto_fi.solicituduser/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "sql": {
@@ -73,8 +73,8 @@
   },
   "lcap": true,
   "sapux": [
-    "app/btp_proyecto_fi.solicitudesuser",
     "app/btp_proyecto_fi.solicitudadmin",
-    "app/btp_proyecto_fi.tiposolicitudes"
+    "app/btp_proyecto_fi.tiposolicitudes",
+    "app/btp_proyecto_fi.solicituduser"
   ]
 }

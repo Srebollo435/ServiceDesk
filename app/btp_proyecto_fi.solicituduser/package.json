@@ -1,7 +1,7 @@
 {
-  "name": "btp_proyecto_fi.solicitudesuser",
+  "name": "btp_proyecto_fi.solicituduser",
   "version": "0.0.1",
-  "description": "UI Solicitudes User",
+  "description": "UI solicutd de usuario",
   "keywords": [
     "ui5",
     "openui5",

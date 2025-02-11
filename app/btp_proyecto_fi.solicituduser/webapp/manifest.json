@@ -1,7 +1,7 @@
 {
   "_version": "1.60.0",
   "sap.app": {
-    "id": "btpproyectofi.solicitudesuser",
+    "id": "btpproyectofi.solicituduser",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.16.3",
-      "toolsId": "56f3cb06-a4d8-46fa-8c40-f8fad18312ba"
+      "toolsId": "50de28c9-e3d0-4160-bdf7-d8656db9229e"
     },
     "dataSources": {
       "mainService": {
@@ -27,8 +27,8 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "btpproyectofisolicitudesuser-display": {
-          "semanticObject": "btpproyectofisolicitudesuser",
+        "btpproyectofisolicituduser-display": {
+          "semanticObject": "btpproyectofisolicituduser",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -73,7 +73,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "btpproyectofi.solicitudesuser.i18n.i18n"
+          "bundleName": "btpproyectofi.solicituduser.i18n.i18n"
         }
       },
       "": {
@@ -134,8 +134,7 @@
                     "type": "ResponsiveTable"
                   }
                 }
-              },
-              "initialLoad": "Enabled"
+              }
             }
           }
         },

@@ -1,18 +1,14 @@
 using ServiceDesk_BTPService as service from '../../srv/service';
 using from '../../db/schema';
 
-annotate service.SolicitudesAdmin with @(
+annotate service.SolicitudesUser with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
         Data : [
             {
                 $Type : 'UI.DataField',
                 Value : ID,
-                Label : 'ID',
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : Usuario_so,
+                Label : '{i18n>ID_code}',
             },
             {
                 $Type : 'UI.DataField',
@@ -29,15 +25,12 @@ annotate service.SolicitudesAdmin with @(
                 $Type : 'UI.DataField',
                 Label : 'Motivo',
                 Value : Motivo,
+                Criticality : Estado.criticality,
             },
             {
                 $Type : 'UI.DataField',
                 Value : T_solicitud_ID,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : Asignado_ID,
-                Label : '{i18n>Asignadoid}',
+                Label : '{i18n>Tsolicitudid1}',
             },
         ],
     },
@@ -63,11 +56,6 @@ annotate service.SolicitudesAdmin with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : Usuario_so,
-            Label : '{i18n>usuario}',
-        },
-        {
-            $Type : 'UI.DataField',
             Label : '{i18n>Estadocode}',
             Value : Estado_code,
             Criticality : Estado.criticality,
@@ -80,37 +68,21 @@ annotate service.SolicitudesAdmin with @(
         {
             $Type : 'UI.DataField',
             Value : T_solicitud_ID,
-            Label : '{i18n>Tsolicitudid}',
+            Label : '{i18n>TipoSolicitud}',
         },
         {
             $Type : 'UI.DataField',
-            Value : Asignado_ID,
-            Label : '{i18n>Asignadoid}',
+            Value : Motivo,
+            Label : 'Motivo',
         },
     ],
     UI.SelectionFields : [
-        Estado_code,
-        T_solicitud_ID,
+        Urgencia_code,
     ],
-    UI.HeaderInfo : {
-        Title : {
-            $Type : 'UI.DataField',
-            Value : createdBy,
-        },
-        TypeName : '',
-        TypeNamePlural : '',
-        Description : {
-            $Type : 'UI.DataField',
-            Value : ID,
-        },
-        TypeImageUrl : 'sap-icon://account',
-    },
 );
 
-annotate service.SolicitudesAdmin with {
+annotate service.SolicitudesUser with {
     T_solicitud @(
-        Common.Label : '{i18n>Tsolicitudid}',
-        Common.Text : T_solicitud.Nombre,
         Common.ValueList : {
             $Type : 'Common.ValueListType',
             CollectionPath : 'TiposDeSolicitud',
@@ -121,29 +93,28 @@ annotate service.SolicitudesAdmin with {
                     ValueListProperty : 'ID',
                 },
             ],
+        Label : 'Tipo Solicictud',
         },
         Common.ValueListWithFixedValues : true,
-        )
-};
-
-annotate service.SolicitudesAdmin with {
-    Estado @(
-        Common.Label : '{i18n>Estadocode}',
-        Common.ValueListWithFixedValues : true,
-        Common.Text : Estado.descr,
+        Common.Text : T_solicitud.Nombre,
+        Common.FieldControl : #ReadOnly,
     )
 };
 
-annotate service.SolicitudesAdmin.Comunicaciones with @(
+annotate service.SolicitudesUser with {
+    Urgencia @(
+        Common.Label : '{i18n>Urgenciacode}',
+        Common.ValueListWithFixedValues : true,
+        Common.Text : Urgencia.descr,
+    )
+};
+
+annotate service.SolicitudesUser.Comunicaciones with @(
     UI.LineItem #Comunicaciones : [
         {
             $Type : 'UI.DataField',
             Value : ID,
             Label : 'ID',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : author,
         },
         {
             $Type : 'UI.DataField',
@@ -154,79 +125,29 @@ annotate service.SolicitudesAdmin.Comunicaciones with @(
             $Type : 'UI.DataField',
             Value : timestamp,
         },
-    ],
-    UI.Facets : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : 'Detalles Comunicación',
-            ID : 'DetallesComunicacin',
-            Target : '@UI.FieldGroup#DetallesComunicacin',
-        },
-    ],
-    UI.FieldGroup #DetallesComunicacin : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type : 'UI.DataField',
-                Value : ID,
-                Label : 'ID',
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : author,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : timestamp,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : message,
-                Label : 'message',
-            },
-        ],
-    },
-    UI.HeaderInfo : {
-        TypeImageUrl : 'sap-icon://disconnected',
-        TypeName : '',
-        TypeNamePlural : '',
-        Title : {
-            $Type : 'UI.DataField',
-            Value : author,
-        },
-        Description : {
-            $Type : 'UI.DataField',
-            Value : timestamp,
-        },
-    },
+    ]
 );
 
-annotate service.SolicitudesAdmin with {
-    Urgencia @(
-        Common.Text : Urgencia.descr,
-        Common.ValueListWithFixedValues : true,
-    )
-};
-
-annotate service.SolicitudesAdmin with {
-    Asignado @(
-        Common.Text : Asignado.Nombre,
+annotate service.TiposDeSolicitud with {
+    ID @(
         Common.ValueList : {
             $Type : 'Common.ValueListType',
-            CollectionPath : 'PersonasSoporte',
+            CollectionPath : 'TiposDeSolicitud',
             Parameters : [
                 {
                     $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : Asignado_ID,
+                    LocalDataProperty : ID,
                     ValueListProperty : 'ID',
                 },
             ],
+            Label : 'Tipo Solicictud',
         },
         Common.ValueListWithFixedValues : true,
+        Common.Text : Nombre,
     )
 };
 
-annotate service.PersonasSoporte with {
-    ID @Common.Text : Nombre
+annotate service.SolicitudesUser with {
+    Estado @Common.Text : Estado.descr
 };
 

@@ -91,6 +91,7 @@ annotate service.SolicitudesAdmin with @(
     UI.SelectionFields : [
         Estado_code,
         T_solicitud_ID,
+        Usuario_so,
     ],
     UI.HeaderInfo : {
         Title : {
@@ -227,6 +228,14 @@ annotate service.SolicitudesAdmin with {
 };
 
 annotate service.PersonasSoporte with {
+    ID @Common.Text : Nombre
+};
+
+annotate service.SolicitudesAdmin with {
+    Usuario_so @Common.Label : '{i18n>Usuarioso}'
+};
+
+annotate service.TiposDeSolicitud with {
     ID @Common.Text : Nombre
 };
 

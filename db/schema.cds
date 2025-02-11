@@ -18,7 +18,7 @@ entity Solicitudes : managed
     key ID : UUID;
     Create : String(100);
     Modifier : String(100);
-    Usuario_so : type of managed: createdBy; 
+    Usuario_so : String @cds.on.insert: $user;
     T_solicitud : Association to one TiposDeSolicitud;
     Estado : Association to one Estado default 'N';
     Urgencia : Association to one Urgencia default 'M';

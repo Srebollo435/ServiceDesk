@@ -57,3 +57,7 @@ annotate service.TiposDeSolicitud with {
     Nombre @Common.Label : '{i18n>TipoSolicitud}'
 };
 
+annotate service.TiposDeSolicitud with {
+    ID @Common.FieldControl : #ReadOnly
+};
+

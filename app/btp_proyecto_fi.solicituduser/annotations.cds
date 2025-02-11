@@ -25,7 +25,6 @@ annotate service.SolicitudesUser with @(
                 $Type : 'UI.DataField',
                 Label : 'Motivo',
                 Value : Motivo,
-                Criticality : Estado.criticality,
             },
             {
                 $Type : 'UI.DataField',
@@ -79,10 +78,24 @@ annotate service.SolicitudesUser with @(
     UI.SelectionFields : [
         Urgencia_code,
     ],
+    UI.HeaderInfo : {
+        Title : {
+            $Type : 'UI.DataField',
+            Value : createdBy,
+        },
+        TypeName : '',
+        TypeNamePlural : '',
+        Description : {
+            $Type : 'UI.DataField',
+            Value : ID,
+        },
+        TypeImageUrl : 'sap-icon://activity-individual',
+    },
 );
 
 annotate service.SolicitudesUser with {
     T_solicitud @(
+        Common.Text : T_solicitud.Nombre,
         Common.ValueList : {
             $Type : 'Common.ValueListType',
             CollectionPath : 'TiposDeSolicitud',
@@ -92,13 +105,14 @@ annotate service.SolicitudesUser with {
                     LocalDataProperty : T_solicitud_ID,
                     ValueListProperty : 'ID',
                 },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'Nombre',
+                },
             ],
-        Label : 'Tipo Solicictud',
         },
         Common.ValueListWithFixedValues : true,
-        Common.Text : T_solicitud.Nombre,
-        Common.FieldControl : #ReadOnly,
-    )
+        )
 };
 
 annotate service.SolicitudesUser with {
@@ -125,29 +139,30 @@ annotate service.SolicitudesUser.Comunicaciones with @(
             $Type : 'UI.DataField',
             Value : timestamp,
         },
-    ]
+    ],
+    UI.HeaderInfo : {
+        Title : {
+            $Type : 'UI.DataField',
+            Value : author,
+        },
+        TypeName : '',
+        TypeNamePlural : '',
+        Description : {
+            $Type : 'UI.DataField',
+            Value : timestamp,
+        },
+    },
 );
 
-annotate service.TiposDeSolicitud with {
-    ID @(
-        Common.ValueList : {
-            $Type : 'Common.ValueListType',
-            CollectionPath : 'TiposDeSolicitud',
-            Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : ID,
-                    ValueListProperty : 'ID',
-                },
-            ],
-            Label : 'Tipo Solicictud',
-        },
+
+annotate service.SolicitudesUser with {
+    Estado @(
+        Common.Text : Estado.descr,
         Common.ValueListWithFixedValues : true,
-        Common.Text : Nombre,
     )
 };
 
-annotate service.SolicitudesUser with {
-    Estado @Common.Text : Estado.descr
+annotate service.Estado with {
+    code @Common.Text : descr
 };
 

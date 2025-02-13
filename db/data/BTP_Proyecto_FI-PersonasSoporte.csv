@@ -1,6 +1,6 @@
 ID,Nombre,Apellido1,Apellido2,createdAt,createdBy,modifiedAt,modifiedBy
-1a2b3c4d-1234-5678-9abc-def012345678,Carlos,Pérez,Gómez
-2b3c4d5e-2345-6789-abcd-ef0123456789,María,López,Martínez
-3c4d5e6f-3456-789a-bcde-f01234567890,Andrés,García,Fernández
-4d5e6f7g-4567-89ab-cdef-012345678901,Elena,Rodríguez,Sánchez
-5e6f7g8h-5678-9abc-def0-123456789012,Javier,Hernández,Ruiz
+1a2b3c4d-1234-5678-9abc-def012345678,Carlos,Pérez,Gómez,2024-01-10T08:30:00Z,admin,2024-02-05T14:00:00Z,user1
+2b3c4d5e-2345-6789-abcd-ef0123456789,María,López,Martínez,2024-01-11T09:15:00Z,admin,2024-02-06T16:30:00Z,user2
+3c4d5e6f-3456-789a-bcde-f01234567890,Andrés,García,Fernández,2024-01-12T10:00:00Z,admin,2024-02-07T12:45:00Z,user3
+4d5e6f7g-4567-89ab-cdef-012345678901,Elena,Rodríguez,Sánchez,2024-01-13T11:45:00Z,admin,2024-02-08T15:10:00Z,user4
+5e6f7g8h-5678-9abc-def0-123456789012,Javier,Hernández,Ruiz,2024-01-14T13:20:00Z,admin,2024-02-09T18:20:00Z,user5

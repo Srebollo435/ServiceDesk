@@ -1,6 +1,6 @@
 ID,Nombre,createdAt,createdBy,modifiedAt,modifiedBy
-0d99c277-05ed-44cb-bf4d-996c9b00e6c7,Documentación
-ad4c3237-6c5c-4555-bcde-163aea747d33,Seguridad
-f47ac10b-58cc-4372-a567-0e02b2c3d479,Infraestructura
-c56a4180-65aa-42ec-a945-5fd21dec0538,Desarrollo
-6ba7b810-9dad-11d1-80b4-00c04fd430c8,Operaciones
+0d99c277-05ed-44cb-bf4d-996c9b00e6c7,Documentación,2024-01-15T08:30:00Z,admin,2024-02-10T14:00:00Z,user1
+ad4c3237-6c5c-4555-bcde-163aea747d33,Seguridad,2024-01-16T09:15:00Z,admin,2024-02-09T16:30:00Z,user2
+f47ac10b-58cc-4372-a567-0e02b2c3d479,Infraestructura,2024-01-17T10:00:00Z,admin,2024-02-08T12:45:00Z,user3
+c56a4180-65aa-42ec-a945-5fd21dec0538,Desarrollo,2024-01-18T11:45:00Z,admin,2024-02-07T15:10:00Z,user4
+6ba7b810-9dad-11d1-80b4-00c04fd430c8,Operaciones,2024-01-19T13:20:00Z,admin,2024-02-06T18:20:00Z,user5

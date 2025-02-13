@@ -3,7 +3,7 @@ sap.ui.define(
     function (Component) {
         "use strict";
 
-        return Component.extend(".tiposolicitudes.Component", {
+        return Component.extend("btpproyectofi.solicitudadmin.Component", {
             metadata: {
                 manifest: "json"
             }

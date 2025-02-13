@@ -1,0 +1,181 @@
+_schema-version: 3.3.0
+ID: BTP_Proyecto_FI
+version: 1.0.0
+description: "Proyecto final BTP"
+parameters:
+  enable-parallel-deployments: true
+  deploy_mode: html5-repo
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+        - mkdir -p resources
+modules:
+  - name: BTP_Proyecto_FI-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: BTP_Proyecto_FI-db
+      - name: BTP_Proyecto_FI-auth
+      - name: BTP_Proyecto_FI-destination
+
+  - name: BTP_Proyecto_FI-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: BTP_Proyecto_FI-db
+
+  - name: BTP_Proyecto_FI-app-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: BTP_Proyecto_FI-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources/
+      requires:
+        - name: BTP_Proyecto_FIbtp_proyecto_fi.solicitudadmin
+          artifacts:
+            - btp_proyecto_fi.solicitudadmin.zip
+          target-path: resources/
+        - name: BTP_Proyecto_FIbtp_proyecto_fi.solicituduser
+          artifacts:
+            - btp_proyecto_fi.solicituduser.zip
+          target-path: resources/
+        - name: BTP_Proyecto_FIbtp_proyecto_fi.tiposolicitudes
+          artifacts:
+            - btp_proyecto_fi.tiposolicitudes.zip
+          target-path: resources/
+
+  - name: BTP_Proyecto_FIbtp_proyecto_fi.solicitudadmin
+    type: html5
+    path: app/btp_proyecto_fi.solicitudadmin
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm ci
+        - npm run build
+      supported-platforms:
+        []
+  - name: BTP_Proyecto_FIbtp_proyecto_fi.solicituduser
+    type: html5
+    path: app/btp_proyecto_fi.solicituduser
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm ci
+        - npm run build
+      supported-platforms:
+        []
+  - name: BTP_Proyecto_FIbtp_proyecto_fi.tiposolicitudes
+    type: html5
+    path: app/btp_proyecto_fi.tiposolicitudes
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm ci
+        - npm run build
+      supported-platforms:
+        []
+
+  - name: BTP_Proyecto_FI-destinations
+    type: com.sap.application.content
+    requires:
+      - name: BTP_Proyecto_FI-auth
+        parameters:
+          service-key:
+            name: BTP_Proyecto_FI-auth-key
+      - name: BTP_Proyecto_FI-html5-repo-host
+        parameters:
+          service-key:
+            name: BTP_Proyecto_FI-html5-repo-host-key
+      - name: srv-api
+      - name: BTP_Proyecto_FI-destination
+        parameters:
+          content-target: true
+    build-parameters:
+      no-source: true
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: update
+          destinations:
+            - Name: BTP_Proyecto_FI-html5-repository
+              ServiceInstanceName: BTP_Proyecto_FI-html5-repo-host
+              ServiceKeyName: BTP_Proyecto_FI-html5-repo-host-key
+              sap.cloud.service: BTP_Proyecto_FI.service
+            - Name: BTP_Proyecto_FI-auth
+              Authentication: OAuth2UserTokenExchange
+              ServiceInstanceName: BTP_Proyecto_FI-auth
+              ServiceKeyName: BTP_Proyecto_FI-auth-key
+              sap.cloud.service: BTP_Proyecto_FI.service
+
+resources:
+  - name: BTP_Proyecto_FI-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: BTP_Proyecto_FI-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  - name: BTP_Proyecto_FI-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: BTP_Proyecto_FI-${org}-${space}
+        tenant-mode: dedicated
+  - name: BTP_Proyecto_FI-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            existing_destinations_policy: update
+            destinations:
+              - Name: BTP_Proyecto_FI-srv-api
+                URL: ~{srv-api/srv-url}
+                Authentication: NoAuthentication
+                Type: HTTP
+                ProxyType: Internet
+                HTML5.ForwardAuthToken: true
+                HTML5.DynamicDestination: true
+              - Name: ui5
+                URL: https://ui5.sap.com
+                Authentication: NoAuthentication
+                Type: HTTP
+                ProxyType: Internet
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+  
